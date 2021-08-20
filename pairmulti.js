@@ -1,19 +1,16 @@
-console.log("pair");
-
-function solution(n, m) {
-  const less = (a, b) => {
-    const result = b / a;
-    console.log("result", result);
-    const result2 = result / a;
-    console.log("result2", result2);
+function solution(a, b) {
+  let min = Math.min(a, b);
+  let max = Math.max(a, b);
+  const gcd = (min, max) => {
+    return min % max === 0 ? max : gcd(max, min % max);
   };
-  // const max = (a, b) => {};
-  // const less = m % n === 0 ? n : 1;
-  const max = m % n === 0 ? m : m * n;
-  const lesval = less(n, m);
-  // var answer = [less(n, m), max(n, m)];
-  var answer = 0;
+  const lcm = (min, max) => {
+    return (min * max) / gcd(min, max);
+  };
+
+  var answer = [gcd(min, max), lcm(min, max)];
+  console.log(answer);
   return answer;
 }
 
-solution(3, 12);
+solution(4, 6);
