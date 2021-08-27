@@ -2,48 +2,59 @@ const data = "abcdefghijklmnopqrstuvwxyz";
 const data1 = data.split("");
 
 function solution(s, n) {
-  const arr = s.split("");
   const regex = /[A-Z]/g;
+  const upper = s
+    .split("")
+    .map((element, index) => {
+      if (element.match(regex) !== null) {
+        return index;
+      }
+    })
+    .filter((element) => element !== undefined);
+
   const lowers = s.toLowerCase();
-  const found = s.match(regex);
-  const first = lowers.split("")[0];
-  const value = arr.reduce((acc, cur, index) => {
-    cur.match(regex);
-    return index;
-  });
-  // console.log(found);
+  const lowersSplit = lowers.split("");
+  let i = 0;
   let index = [];
-  for (let i = 0; i < arr.length; i++) {
-    let chk = arr.indexOf(found[i]);
-    // console.log(found[i]);
-    if (chk !== -1) {
-      index.push(chk + index.length);
-      const r2 = arr.splice(chk, 1);
-      console.log(r2, arr, chk);
+  let rest;
+  while (lowersSplit.length > i) {
+    let chk = false;
+    for (let j = 0; j < data1.length; j++) {
+      if (lowersSplit[i] === data1[j]) {
+        if (j + n > 25) {
+          rest = (j + n) % 25;
+          for (const a of upper) {
+            if (a === i) {
+              chk = true;
+            }
+          }
+          if (chk) {
+            index.push(data1[rest - 1].toUpperCase());
+          } else {
+            index.push(data1[rest - 1]);
+          }
+        } else {
+          rest = j + n;
+          for (const a of upper) {
+            if (a === i) {
+              chk = true;
+            }
+          }
+          if (chk) {
+            index.push(data1[rest].toUpperCase());
+          } else {
+            index.push(data1[rest]);
+          }
+        }
+      }
     }
+    if (lowersSplit[i] === " ") {
+      index.push(" ");
+    }
+    i++;
   }
 
-  const indexof = data.indexOf(first);
-  function rest(indexof) {
-    let rest = indexof;
-    if (indexof > 25) {
-      rest = indexof % 25;
-      return rest - 1;
-    } else {
-      return rest;
-    }
-  }
-
-  let i = rest(indexof);
-  let newArr = [];
-  let k =
-  for (let j = i; j < i + arr.length; j++) {
-    
-    if (j > 25) {
-      
-    }
-  }
-  console.log(data1[i]);
+  return index.join("");
 }
 
-solution("wYzDsdfsdfsfD ", 1);
+const re = solution("AB", 1);
