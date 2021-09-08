@@ -1,13 +1,13 @@
 function solution(numbers) {
   let mock = [];
-  const set = new Set();
+  // const set = new Set();
   for (let i = 0; i < numbers.length; i++) {
     for (let j = 0; j < numbers.length; j++) {
-      console.log(i, j);
-      set.add({ [i]: j });
+      console.log(i.toString(), j.toString());
+      // set.add({ [i]: j });
     }
   }
-  console.log(set);
+  // console.log(set);
   var answer = [];
   return answer;
 }
