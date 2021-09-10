@@ -22,7 +22,7 @@ function solution(n, lost, reserve) {
   }, 0);
 
   console.log(Narr);
-
+  let answer = Narr > n ? n : Narr;
   // const redu1 = Narr.reduce((acc, cur, index) => {
   //   let obj = new Object();
   //   obj[index] = 1;
