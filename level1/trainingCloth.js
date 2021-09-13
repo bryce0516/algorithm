@@ -1,80 +1,84 @@
 function solution(n, lost, reserve) {
-  // const Narr = Array.from({ length: n }, (_, i) => {
-  //   let obj = new Object();
-  //   obj[i] = 1;
-  //   console.log("this is obj", obj);
-  //   return obj;
-  // })
-  // .reduce(
-  //   (acc, cur, index) => {
-  //     let num = 1;
-  //     let key = Number(Object.keys(cur)) + 1;
-  //     console.log(acc, cur);
-  //     for (let j = 0; j < reserve.length; j++) {
-  //       if (Number(key) === reserve[j]) {
-  //         num += 1;
-  //       }
-  //     }
-  //     for (let j = 0; j < lost.length; j++) {
-  //       if (Number(key) === lost[j]) {
-  //         num -= 1;
-  //       }
-  //     }
-  //     acc += num;
-  //     return acc;
-  //   },
-  //   0
-  // );
-  const reserveArr = reserve.map((element1, index1) => {
-    lost.filter((element2, index2) => element2 - 1 !== element1);
-  });
-  console.log(reserveArr);
-  for (let i = 0; i < reserve.length; i++) {
-    for (let j = 0; j < lost.length; j++) {
-      if (lost[j] === reserve[i] + 1) {
-        console.log("want remove index", i, "item", reserve[i]);
-      } else if (lost[j] === reserve[i] - 1) {
-      }
+  const newArr = Array.from({ length: n }, (_, i) => 1).map(
+    (element, index) => {
+      reserve.map((element2, index2) => {
+        if (element2 === index + 1) {
+          element += 1;
+        }
+      });
+      lost.map((element3, index3) => {
+        if (element3 === index + 1) {
+          element -= 1;
+        }
+      });
 
-      console.log(reserve[i], lost[j]);
+      return element;
     }
-  }
-  const concatArray = lost.concat(reserve);
-  // console.log(concatArray);
-  const Narr = Array.from({ length: n }, (_, i) => 1).reduce(
-    (acc, cur, index) => {
-      // for (let j = 0a; j < reserve.length; j++) {
-      //   if (reserve[j] === index + 1) {
-      //     cur += 1;
-      //   }
-      // }
-      // for (let k = 0; k < lost.length; k++) {
-      //   if (lost[k] === index + 1) {
-      //     cur -= 1;
-      //   }
-      // }
-
-      // if(cur === 0) {
-
-      // }
-
-      // console.log("have status:", index + 1, "how many", cur, "before", acc);
-      acc.push(cur);
-
-      // console.log("final", acc);
-      return acc;
-    },
-    []
   );
 
-  let answer = Narr > n ? n : Narr;
-  console.log("answer", answer);
-  // const redu1 = Narr.reduce((acc, cur, index) => {
-  //   let obj = new Object();
-  //   obj[index] = 1;
-  //   acc.push(obj);
-  //   return acc;
-  // }, []);
-  // console.log(redu1);
+  let newArr2 = newArr.slice();
+  newArr.map((element, index) => {
+    newArr2.map((element2, index2) => {
+      if (newArr2[index] === 0) {
+        if (newArr2[index - 1] === 2) {
+          newArr2[index - 1] -= 1;
+          newArr2[index] += 1;
+        } else if (newArr2[index + 1] === 2) {
+          newArr2[index + 1] -= 1;
+          newArr2[index] += 1;
+        }
+      }
+    });
+  });
+  console.log(newArr, newArr2);
+  const answer = newArr2.filter((element) => element !== 0).length;
+
+  return answer;
 }
-solution(4, [3], [2, 4]);
+
+// function solution(n, lost, reserve) {
+//   const actualReserve = reserve.filter((el) => lost.indexOf(el) === -1);
+//   const actualLost = lost.filter((el) => reserve.indexOf(el) === -1);
+
+//   const set = Array.apply(undefined, new Array(n)).map((el, i) =>
+//     actualLost.indexOf(i + 1) === -1 ? true : false
+//   );
+
+//   for (let hero of actualReserve) {
+//     if (set[hero - 1 - 1] === false) {
+//       set[hero - 1 - 1] = true;
+//     } else if (set[hero - 1 + 1] === false) {
+//       set[hero - 1 + 1] = true;
+//     }
+//   }
+//   console.log(actualReserve, set, set.filter((el) => el).length);
+//   return set.filter((el) => el).length;
+// }
+
+// function solution(n, lost, reserve) {
+//   let tmp = reserve.slice();
+
+//   for (let i in tmp) {
+//     let key = lost.indexOf(tmp[i]);
+//     console.log(key, i);
+//     if (key != -1) {
+//       console.log("index", reserve.indexOf(tmp[i]));
+//       lost.splice(key, 1);
+//       reserve.splice(reserve.indexOf(tmp[i]), 1);
+//     }
+//   }
+//   console.log(lost, reserve);
+
+//   for (let i of reserve) {
+//     let key = lost.includes(i - 1) ? lost.indexOf(i - 1) : lost.indexOf(i + 1);
+//     console.log(key);
+//     if (key != -1) {
+//       lost.splice(key, 1);
+//     }
+//   }
+
+//   return n - lost.length;
+// }
+
+const value = solution(5, [2, 4], [1, 3, 5]);
+// console.log(value);
