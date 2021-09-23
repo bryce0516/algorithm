@@ -48,31 +48,23 @@
 //   ["mislav", "stanko", "mislav", "ana"]
 // );
 
-
 function solution(participant, completion) {
-  const sortPar = participant.sort()
-  const 
-  // const arr = participant.concat(completion);
-  // const set = [...new Set(arr)];
-
-  // const mock = Array.from({ length: set.length }, (_, i) => 0);
-
-  // for (let i = 0; i < set.length; i++) {
-  //   for (let j = 0; j < arr.length; j++) {
-  //     if (set[i] === arr[j]) {
-  //       mock[i] += 1;
-  //     }
-  //   }
-  // }
-  // const answer = set[mock.findIndex((element) => element % 2 !== 0)];
-  // return answer;
+  const sortPar = participant.sort();
+  const sortCom = completion.sort();
+  let mock = [];
+  for (let i = 0; i < sortPar.length; i++) {
+    if (participant[i] !== sortCom[i]) {
+      mock.push(participant[i]);
+    }
+  }
+  let answer = mock[0];
+  return answer;
 }
 
 const value = solution(
+  // ["leo", "kiki", "eden"],
+  // ["eden", "kiki"]
   ["mislav", "stanko", "mislav", "ana", "ana"],
   ["mislav", "stanko", "mislav", "ana"]
 );
 console.log(value);
-
-
-
