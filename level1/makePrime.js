@@ -27,26 +27,38 @@
 // console.log(value);
 
 function solution(nums) {
-  console.log("this is nums", nums);
+  function isPrime(n) {
+    if (n <= 1) {
+      return false;
+    }
 
-  for (let i = 0; i < nums.length; i++) {
-    const rest = nums.slice(i + 1);
-    let wantAttach = [];
-    for (let j = 0; j < rest.length; j++) {
-      if (rest[j + 1] !== undefined) {
-        wantAttach.push([rest[j], rest[j + 1]]);
+    for (var i = 2; i < n; i++) {
+      if (n % i === 0) {
+        return false;
       }
     }
-    console.log(i, rest);
-    console.log("attach", wantAttach);
+
+    return true;
   }
 
-  var answer = -1;
+  let wantAttach = [];
+  for (let i = 0; i < nums.length; i++) {
+    const rest = nums.slice(i + 1);
 
-  // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-  console.log("Hello Javascript");
+    for (let j = 0; j < rest.length; j++) {
+      const rest2 = rest.slice(j + 1);
 
-  return answer;
+      for (let k = 0; k < rest2.length; k++) {
+        let firstPlusSecond = nums[i] + rest[j] + rest2[k];
+        if (isPrime(firstPlusSecond)) {
+          wantAttach.push(firstPlusSecond);
+        }
+        console.log(nums[i], rest[j], "acc", rest2[k], firstPlusSecond);
+      }
+    }
+  }
+
+  return wantAttach.length;
 }
 
-solution([1, 2, 3, 4, 5]);
+solution([1, 2, 10]);
