@@ -1,10 +1,9 @@
 function solution(arr1, arr2) {
   console.log("origin", arr1, arr2);
   arr1.map((element1, index1) => {
-    element1.map((innerElement1, innerIndex1) => {
-      arr2.map((element2, index2) => {
-        element2.map((innerElement2, innerIndex2) => {});
-      });
+    arr2.map((element2, index2) => {
+      element2.map((element3, index3) => {});
+      console.log(element1[index2], element2[index1], index2);
     });
   });
   var answer = [[]];
@@ -13,11 +12,12 @@ function solution(arr1, arr2) {
 
 solution(
   [
-    [1, 2],
-    [3, 4],
+    [1, 4],
+    [3, 2],
+    [4, 1],
   ],
   [
-    [4, 3],
-    [2, 1],
+    [3, 3],
+    [3, 3],
   ]
 );
