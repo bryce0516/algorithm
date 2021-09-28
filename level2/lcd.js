@@ -1,15 +1,18 @@
 function solution(arr) {
-  let min = Math.min(a, b);
-  let max = Math.max(a, b);
-  const gcd = (min, max) => {
-    return min % max === 0 ? max : gcd(max, min % max);
-  };
-  const lcm = (min, max) => {
-    return (min * max) / gcd(min, max);
-  };
-  arr.reduce((acc, cur) => {});
+  const answer = arr.reduce((acc, cur) => {
+    let min = Math.min(acc, cur);
+    let max = Math.max(acc, cur);
+    const gcd = (min, max) => {
+      return min % max === 0 ? max : gcd(max, min % max);
+    };
 
-  var answer = 0;
+    const lcm = (min, max) => {
+      return (min * max) / gcd(min, max);
+    };
+    acc = lcm(min, max);
+    return acc;
+  }, 1);
+
   return answer;
 }
 
