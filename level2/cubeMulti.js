@@ -1,23 +1,47 @@
+// function solution(arr1, arr2) {
+//   let answer = [];
+//   arr1.map((element1, index1) => {
+//     let mock = [];
+//     arr2.map((element2, index2) => {
+//       let result = element2.reduce((acc, cur, index3) => {
+//         console.log(`[${index2}, ${index3}]`, `[${index3}, ${index2}]`);
+//         acc += arr1[index2][index3] * arr2[index3][index2];
+//         return acc;
+//       }, 0);
+
+//       mock.push(result);
+//       console.log(result);
+//     });
+//     answer.push(mock);
+//   });
+//   console.log(answer);
+//   return answer;
+// }
+
 function solution(arr1, arr2) {
-  console.log("origin", arr1, arr2);
+  let answer = [];
   arr1.map((element1, index1) => {
-    arr2.map((element2, index2) => {
-      element2.map((element3, index3) => {});
-      console.log(element1[index2], element2[index1], index2);
+    element1.map((innerElement1, innerIndex1) => {
+      arr2.map((element2, index2) => {
+        element2.map((innerElement2, innerIndex2) => {
+          console.log(`[${innerIndex1}, ${innerIndex2}]`);
+        });
+      });
     });
   });
-  var answer = [[]];
+  console.log(answer);
   return answer;
 }
 
 solution(
   [
-    [1, 4],
-    [3, 2],
-    [4, 1],
+    [2, 3, 2],
+    [4, 2, 4],
+    [3, 1, 4],
   ],
   [
-    [3, 3],
-    [3, 3],
+    [5, 4, 3],
+    [2, 4, 1],
+    [3, 1, 1],
   ]
 );
