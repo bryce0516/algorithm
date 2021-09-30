@@ -1,9 +1,11 @@
 function solution(n) {
   let mock = [];
-  let vla = 0;
+  let f0f1 = 0;
+  let before = 0;
+  let after = 0;
   for (let i = 0; i < n; i++) {
     if (i < 2) {
-      vla += i;
+      f0f1 += i;
     }
     const value = {};
 
@@ -12,7 +14,7 @@ function solution(n) {
     // let val = (i-1) + (i - 2);
     // mock.push(val);
   }
-  console.log(mock, vla);
+  console.log(mock, f0f1);
   var answer = 0;
   return answer;
 }
