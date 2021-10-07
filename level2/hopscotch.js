@@ -75,17 +75,16 @@ const solution = (land) => {
   const slicedLength = restArr.length - 1;
   let mock = [];
   const recursive = (target, restArr, pickedIndex, length, sum) => {
-    console.log("i picked", target);
+    console.log("i picked", target, "this is sum", sum, length);
+
+    sum += target;
     if (length < 0) {
-      console.log("end");
+      console.log("end", sum);
+      mock.push(sum);
       return sum;
     }
-    // sum += target;
-    // let currentIndex = pickedIndex;
-    const remainder = restArr.slice(1);
-    sum += target;
 
-    console.log(restArr[0], length);
+    const remainder = restArr.slice(1);
 
     restArr[0].map((element, index) => {
       if (index !== pickedIndex) {
@@ -95,14 +94,17 @@ const solution = (land) => {
   };
 
   firstArr.map((element, index) => {
-    const result = recursive(element, restArr, index, slicedLength, 0);
     console.log("this is top index", index);
+    recursive(element, restArr, index, slicedLength, 0);
   });
-  // console.log("this is mock", mock);
+
+  const result = mock.reduce((acc, cur) => (acc > cur ? acc : cur));
+
+  return result;
 };
 
 solution([
   [1, 2, 3, 5],
-  [5, 6, 7, 100],
+  [5, 6, 7, 8],
   [4, 3, 2, 1],
 ]);
