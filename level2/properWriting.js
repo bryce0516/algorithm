@@ -1,63 +1,60 @@
+// function solution(s) {
+//   const arr = s.split("");
+
+//   const recursion = (array, start) => {
+//     if (start === s.length) {
+//       return array.length;
+//     }
+//     if (array.length === 0) {
+//       return array.length;
+//     }
+
+//     let index = 0;
+//     let test;
+//     // console.log("before array, start", start, array);
+//     while (true) {
+//       if (array[index] === "(" && array[index + 1] === ")") {
+//         test = array.splice(index, 2);
+//         break;
+//       }
+
+//       if (index === array.length) {
+//         break;
+//       }
+//       index++;
+//     }
+
+//     // console.log("test check", test, index, array);
+
+//     return recursion(array, start + 1);
+//   };
+//   const value = recursion(arr, 0);
+//   const answer = value === 0 ? true : false;
+//   return answer;
+// }
+
 function solution(s) {
-  const arr = s.split("");
-  // const recursion = (arr, start, YN) => {
-  //   console.log("this is recursion", start, arr);
-  //   if (start === s.length) {
-  //     return;
-  //   }
-  //   if (arr.length === 0) {
-  //     return true;
-  //   }
-
-  //   let index = 0;
-  //   while (true) {
-  //     if (arr[index] === "(" && arr[index + 1] === ")") {
-  //       if (index === 0) {
-  //         arr.splice(0, 2);
-  //       } else {
-  //         arr.splice(index, index + 1);
-  //       }
-  //       console.log("in while", start, index, "result ======>", arr);
-  //     } else {
-  //       YN = false;
-  //     }
-  //     console.log(index);
-  //     index++;
-  //     if (index === arr.length) {
-  //       break;
-  //     }
-  //   }
-
-  //   return recursion(arr, start + 1, YN);
-  // };
-
-  // const answer = recursion(arr, 0);
-  // console.log(answer);
-
-  const recursion = (array, start) => {
-    if (start === s.length) {
-      return console.log("end recursion");
+  const arr = [...s];
+  let index = 0;
+  while (true) {
+    if (index === arr.length) {
+      console.log("end1");
+      break;
     }
-    console.log("index num", start);
-    let index = 0;
-    while (true) {
-      index++;
-      console.log("in while =====>  ", index);
-      if (array[index] === "(" && array[index + 1] === ")") {
-        if (index === 0) {
-          array.splice(0, 2);
-        } else {
-          array.splice(index, index + 1);
-        }
-      }
 
-      if (index === array.length) {
-        break;
-      }
+    if (arr[index] === "(" && arr[index + 1] === ")") {
+      test = arr.splice(index, 2);
+      console.log("first index", index);
+      index = 0;
     }
-    return recursion(array, start + 1);
-  };
-  recursion(arr, 0);
+    console.log(index, arr.length, arr);
+
+    index++;
+  }
+  const answer = arr[0] === ")" ? false : arr.length % 2 === 0 ? true : false;
+  return answer;
 }
 
-solution("(())()");
+const val = solution(")()(");
+
+console.log("answer", val);
