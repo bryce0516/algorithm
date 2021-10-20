@@ -35,26 +35,40 @@
 
 function solution(s) {
   const arr = [...s];
-  let index = 0;
-  while (true) {
-    if (index === arr.length) {
-      console.log("end1");
-      break;
-    }
+  if (arr[0] === ")") return false;
+  if (arr[arr.length - 1] === "(") return false;
+  const redu = arr.reduce(
+    (acc, cur, index) => {
+      if (cur === "(") {
+        acc[0] += 1;
+        acc[1].push(index);
+      } else {
+        acc[2] += 1;
+        acc[3].push(index);
+      }
+      return acc;
+    },
+    [0, [], 0, []]
+  );
 
-    if (arr[index] === "(" && arr[index + 1] === ")") {
-      test = arr.splice(index, 2);
-      console.log("first index", index);
-      index = 0;
+  if (redu[1].length === redu[3].length) {
+    for (let i = 0; i < redu[1].length; i++) {
+      if (redu[1][i] > redu[3][i]) {
+        return false;
+      }
     }
-    console.log(index, arr.length, arr);
-
-    index++;
+    return true;
+  } else {
+    return false;
   }
-  const answer = arr[0] === ")" ? false : arr.length % 2 === 0 ? true : false;
-  return answer;
 }
 
-const val = solution(")()(");
+// const val = solution("(())()");
+const val = solution("()))((()");
 
 console.log("answer", val);
+
+// function is_pair(s) {
+//   var result = s.match(/(\(|\))/g);
+//   return result[0] == "(" && result.length % 2 == 0 ? true : false;
+// }
