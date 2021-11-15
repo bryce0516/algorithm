@@ -13,11 +13,7 @@ function solution(msg) {
   let check = "1";
   let initialString = msg.substring(0, 1);
   const recursive = (string, inputed1, inputed2, yn, nm) => {
-    if (inputed2 === 6) {
-      return console.log("this is end");
-    }
-
-    console.log(string, inputed1, inputed2, mock.length, nm);
+    console.log(string, inputed1, inputed2);
     let decision = false;
     for (let [item] of set.entries()) {
       if (Object.keys(item)[0] === string) {
@@ -44,14 +40,25 @@ function solution(msg) {
     if (yn === "1" || yn === "3") {
       inputed2++;
       let target = msg.substring(inputed1, inputed2);
+      if (inputed2 === 5) {
+        return console.log("this is end");
+      }
       return recursive(target, inputed1, inputed2, yn, nm);
     } else if (yn === "2") {
-      inputed1 = string.length + 1;
+      if (inputed2 - inputed1 > 2) {
+        inputed1 = inputed1 + (inputed2 - inputed1);
+      } else {
+        inputed1++;
+      }
+
       const obj = new Object();
       obj[string] = set.size + 1;
       set.add(obj);
 
       let target = msg.substring(inputed1, inputed2);
+      if (inputed2 === 5) {
+        return console.log("this is end");
+      }
       return recursive(target, inputed1, inputed2, yn, nm);
     }
   };
