@@ -1,70 +1,61 @@
 function solution(msg) {
   const arr = Array.from({ length: 26 }, (_, i) => {
-    const obj = new Object();
-    obj[String.fromCharCode(65 + i)] = i + 1;
-    return obj;
+    return [String.fromCharCode(65 + i), i + 1];
   });
   let mock = [];
   let mock2 = [];
-  const set = new Set([...arr]);
 
   let initialIndex = 0;
   let initialIndex2 = 1;
-  let check = "1";
   let initialString = msg.substring(0, 1);
-  const recursive = (string, inputed1, inputed2, yn, nm) => {
-    console.log(string, inputed1, inputed2);
-    let decision = false;
-    for (let [item] of set.entries()) {
-      if (Object.keys(item)[0] === string) {
-        const value = Object.values(item)[0];
-        if (mock.includes(value) === false) {
-          mock.push(value);
+  const recursive = (string, input1, input2) => {
+    if (input2 === msg.length + 1) return;
+    console.log(string, input1, input2);
+    let check = "0";
+    let trueValue;
+    let falseValue;
+    arr.map((element, index) => {
+      if (element[0] === string) {
+        if (mock.includes(element[1]) === false) {
+          check = "1";
+          trueValue = element[1];
+          mock.push(trueValue);
         } else {
-          decision = true;
+          check = "2";
         }
       }
+    });
+
+    if (check === "0") {
+      falseValue = [string, arr.length + 1];
+      arr.push(falseValue);
     }
 
-    if (nm !== mock.length) {
-      nm = mock.length;
-      yn = "1";
-    } else if (decision) {
-      yn = "3";
-    } else if (nm === mock.length) {
-      yn = "2";
-    }
+    console.log("this is check", check);
+    if (check === "1") {
+      input2++;
+      let trueString = msg.substring(input1, input2);
 
-    console.log("this is check yn", yn, decision);
+      console.log("trueString", trueString, input1, input2);
+      return recursive(trueString, input1, input2);
+    } else if (check === "2") {
+      input2 = input2 + (input2 - input1);
+      let trueString = msg.substring(input1, input2);
 
-    if (yn === "1" || yn === "3") {
-      inputed2++;
-      let target = msg.substring(inputed1, inputed2);
-      if (inputed2 === 5) {
-        return console.log("this is end");
+      return recursive(trueString, input1, input2);
+    } else if ((check = "0")) {
+      input1 = input1 + input2 - input1 - 1;
+      if (input1 === input2) {
+        input2++;
       }
-      return recursive(target, inputed1, inputed2, yn, nm);
-    } else if (yn === "2") {
-      if (inputed2 - inputed1 > 2) {
-        inputed1 = inputed1 + (inputed2 - inputed1);
-      } else {
-        inputed1++;
-      }
-
-      const obj = new Object();
-      obj[string] = set.size + 1;
-      set.add(obj);
-
-      let target = msg.substring(inputed1, inputed2);
-      if (inputed2 === 5) {
-        return console.log("this is end");
-      }
-      return recursive(target, inputed1, inputed2, yn, nm);
+      let falseString = msg.substring(input1, input2);
+      console.log("falseString", falseString);
+      return recursive(falseString, input1, input2);
     }
   };
-  recursive(initialString, initialIndex, initialIndex2, check, 0);
 
-  console.log("this is mock", mock, set);
+  recursive(initialString, initialIndex, initialIndex2);
+  console.log("this is mock", mock, arr);
 }
 
-solution("KAKAO");
+solution("TOBEORNOTTOBEORTOBEORNOT");
