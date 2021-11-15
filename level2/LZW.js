@@ -1,53 +1,63 @@
 function solution(msg) {
   const arr = Array.from({ length: 26 }, (_, i) => {
-    // return String.fromCharCode(65 + i);
     const obj = new Object();
     obj[String.fromCharCode(65 + i)] = i + 1;
     return obj;
   });
-
+  let mock = [];
+  let mock2 = [];
   const set = new Set([...arr]);
-  console.log(set, "this is key");
-  for (let [item] of set.entries()) {
-    console.log("item : ", Object.keys(item)[0]);
-  }
-  const target = msg.split("");
 
-  // console.log("this is value", value);
-  const redu = target.reduce((acc, cur, index) => {
-    // // console.log(Object.values(cur));
-    // let findVal = arr.find((element) => Object.keys(element)[0] === cur);
-
-    const firstAdd = target[index] + target[index + 1];
-    // const firstAdd = "A";
-    for (let [item] of set.entries()) {
-      if (firstAdd === Object.keys(item)[0]) {
-        console.log("exist", Object.keys(item)[0]);
-        break;
-      }
-      const obj = new Object();
-      obj[firstAdd] = set.size() + 1;
-      set.add(obj);
+  let initialIndex = 0;
+  let initialIndex2 = 1;
+  let check = "1";
+  let initialString = msg.substring(0, 1);
+  const recursive = (string, inputed1, inputed2, yn, nm) => {
+    if (inputed2 === 6) {
+      return console.log("this is end");
     }
 
-    // if (firstAdd)
-    // if(firstAdd )
-    // if (index === 0) {
-    //   acc.push(Object.values(findVal)[0]);
-    //   const obj = new Object();
-    //   const firstAdd = target[index] + target[index + 1];
-    //   obj[firstAdd] = arr.length + 1;
-    //   arr.push(obj);
-    // } else {
-    // }
+    console.log(string, inputed1, inputed2, mock.length, nm);
+    let decision = false;
+    for (let [item] of set.entries()) {
+      if (Object.keys(item)[0] === string) {
+        const value = Object.values(item)[0];
+        if (mock.includes(value) === false) {
+          mock.push(value);
+        } else {
+          decision = true;
+        }
+      }
+    }
 
-    // console.log(findVal);
-    return acc;
-  }, []);
+    if (nm !== mock.length) {
+      nm = mock.length;
+      yn = "1";
+    } else if (decision) {
+      yn = "3";
+    } else if (nm === mock.length) {
+      yn = "2";
+    }
 
-  // console.log(arr);
-  // const answer = redu;
-  // return answer;
+    console.log("this is check yn", yn, decision);
+
+    if (yn === "1" || yn === "3") {
+      inputed2++;
+      let target = msg.substring(inputed1, inputed2);
+      return recursive(target, inputed1, inputed2, yn, nm);
+    } else if (yn === "2") {
+      inputed1 = string.length + 1;
+      const obj = new Object();
+      obj[string] = set.size + 1;
+      set.add(obj);
+
+      let target = msg.substring(inputed1, inputed2);
+      return recursive(target, inputed1, inputed2, yn, nm);
+    }
+  };
+  recursive(initialString, initialIndex, initialIndex2, check, 0);
+
+  console.log("this is mock", mock, set);
 }
 
 solution("KAKAO");
