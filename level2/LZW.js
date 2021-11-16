@@ -6,55 +6,53 @@ function solution(msg) {
   let mock2 = [];
 
   let initialIndex = 0;
-  let initialIndex2 = 1;
-  let initialString = msg.substring(0, 1);
-  const recursive = (string, input1, input2) => {
-    if (input2 === msg.length + 1) return;
-    console.log(string, input1, input2);
-    let check = "0";
-    let trueValue;
-    let falseValue;
+  let initialIndex2 = 2;
+  let initialString = msg.substring(initialIndex, initialIndex2);
+  const recursive = (string, input1, input2, origin) => {
+    console.log(origin, string, input1, input2);
+    if (input2 > msg.length) return;
+    let check = false;
     arr.map((element, index) => {
       if (element[0] === string) {
-        if (mock.includes(element[1]) === false) {
-          check = "1";
-          trueValue = element[1];
-          mock.push(trueValue);
-        } else {
-          check = "2";
-        }
+        check = true;
+        const trueValue = element[1];
+        mock.push(trueValue);
       }
     });
-
-    if (check === "0") {
-      falseValue = [string, arr.length + 1];
-      arr.push(falseValue);
-    }
-
-    console.log("this is check", check);
-    if (check === "1") {
-      input2++;
-      let trueString = msg.substring(input1, input2);
-
-      console.log("trueString", trueString, input1, input2);
-      return recursive(trueString, input1, input2);
-    } else if (check === "2") {
-      input2 = input2 + (input2 - input1);
-      let trueString = msg.substring(input1, input2);
-
-      return recursive(trueString, input1, input2);
-    } else if ((check = "0")) {
-      input1 = input1 + input2 - input1 - 1;
-      if (input1 === input2) {
-        input2++;
+    console.log("check >>", check);
+    if (check === false) {
+      const add = [string, arr.length + 1];
+      arr.push(add);
+      if (input2 - input1 === 2) {
+        input2 = input2 - 1;
+        input1 = origin;
+      } else if (input2 - input1 > 2) {
+        input1 = origin + 1;
+        input2 = input1 + 1;
+        origin++;
+      } else if (input2 - input1 < 2) {
       }
       let falseString = msg.substring(input1, input2);
-      console.log("falseString", falseString);
-      return recursive(falseString, input1, input2);
+      return recursive(falseString, input1, input2, origin);
+    } else if (check === true) {
+      if (input2 - input1 === 2) {
+        input2++;
+        origin++;
+      } else if (input2 - input1 < 2) {
+        input1++;
+        input2 = input1 + 2;
+        origin = input1;
+      } else if (input2 - input1 > 2) {
+        input1 = origin + 1;
+        input2 = input1 + 1;
+        origin++;
+      }
+      let trueString = msg.substring(input1, input2);
+      return recursive(trueString, input1, input2, origin);
     }
   };
+  recursive(initialString, initialIndex, initialIndex2, initialIndex);
 
-  recursive(initialString, initialIndex, initialIndex2);
   console.log("this is mock", mock, arr);
 }
 
