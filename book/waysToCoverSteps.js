@@ -13,9 +13,10 @@ const waysToCoverSteps = (n) => {
         waysToCoverSteps(n - 1) +
         waysToCoverSteps(n - 2) +
         waysToCoverSteps(n - 3));
+
   console.log(">>", value);
   return value;
 };
 
-const v = waysToCoverSteps(4);
+const v = waysToCoverSteps(6);
 console.log(v);
