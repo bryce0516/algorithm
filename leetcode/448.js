@@ -49,22 +49,21 @@
 // };
 
 let findDisappearedNumbers = function (nums) {
-  //passed
   let result = [];
+  for (let i = 0; i < nums.length; i++) {
+    let index = Math.abs(nums[i]) - 1;
+    console.log(nums, index);
+    if (nums[index] < 0) continue;
 
-  nums.map((element, j) => {
-    let index = Math.abs(nums[j]) - 1;
-    if (nums[index] < 0) {
-      nums[index] = nums[index];
-    } else {
-      nums[index] = -1 * nums[index];
-    }
-  });
-  nums.map((element, index) => {
-    if (element > 0) result.push(index + 1);
-  });
-
+    nums[index] = -1 * nums[index];
+  }
+  console.log("result", nums);
+  for (let i = 0; i < nums.length; i++) {
+    console.log(nums[i] > 0, i);
+    if (nums[i] > 0) result.push(i + 1);
+  }
+  console.log(result);
   return result;
 };
 
-findDisappearedNumbers([4, 3, 2, 7, 8, 2, 3, 1]);
+findDisappearedNumbers([1, 1, 1, 1]);
