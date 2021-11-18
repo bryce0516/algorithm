@@ -26,6 +26,9 @@
 //   const sets = new Set([...newArr]);
 
 //   const checkValue = (sets, target) => {
+//   if (target < 1) {
+//   return false;
+// }
 //     if (sets.has(target)) {
 //       sets.delete(target);
 //       return false;
@@ -37,12 +40,31 @@
 //   return [...sets];
 // };
 
+// let findDisappearedNumbers = function (nums) {
+//   //solution //tooslow
+//   const newArr = Array.from({ length: nums.length }, (_, i) => i + 1).filter(
+//     (x) => nums.indexOf(x) < 0
+//   );
+//   return newArr;
+// };
+
 let findDisappearedNumbers = function (nums) {
-  //solution //tooslow
-  const newArr = Array.from({ length: nums.length }, (_, i) => i + 1).filter(
-    (x) => nums.indexOf(x) < 0
-  );
-  return newArr;
+  //passed
+  let result = [];
+
+  nums.map((element, j) => {
+    let index = Math.abs(nums[j]) - 1;
+    if (nums[index] < 0) {
+      nums[index] = nums[index];
+    } else {
+      nums[index] = -1 * nums[index];
+    }
+  });
+  nums.map((element, index) => {
+    if (element > 0) result.push(index + 1);
+  });
+
+  return result;
 };
 
 findDisappearedNumbers([4, 3, 2, 7, 8, 2, 3, 1]);
