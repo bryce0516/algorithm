@@ -84,23 +84,62 @@
 // };
 
 //time out
-let maxSubArray = function (nums) {
-  if (nums.length === 1) {
-    return nums[0];
-  }
+// let maxSubArray = function (nums) {
+//   if (nums.length === 1) {
+//     return nums[0];
+//   }
 
-  let maxSum = nums[0];
-  let sum;
-  for (let i = 0; i < nums.length; i++) {
-    sum = nums[i];
-    if (sum > maxSum) maxSum = sum;
-    for (let j = i + 1; j < nums.length; j++) {
-      sum += nums[j];
-      if (sum > maxSum) maxSum = sum;
+//   let maxSum = nums[0];
+//   let sum;
+//   for (let i = 0; i < nums.length; i++) {
+//     sum = nums[i];
+//     if (sum > maxSum) maxSum = sum;
+//     for (let j = i + 1; j < nums.length; j++) {
+//       sum += nums[j];
+//       if (sum > maxSum) maxSum = sum;
+//     }
+//   }
+
+//   return maxSum;
+// };
+
+//map
+// var maxSubArray = function (nums) {
+
+//   const maps = new Map(nums.map((element, index) => [index, element]));
+//   let curr_sum = 0;
+//   let max_sum = Number.NEGATIVE_INFINITY;
+
+//   for (let [key, value] of maps.entries()) {
+//     curr_sum = curr_sum + value;
+//     if (curr_sum > max_sum) {
+//       max_sum = curr_sum;
+//     }
+//     if (curr_sum < 0) {
+//       curr_sum = 0;
+//     }
+//   }
+
+//   return max_sum;
+// };
+
+//set
+let maxSubArray = function (nums) {
+  const sets = new Set([...nums]);
+  console.log(sets);
+  let curr_sum = 0;
+  let max_sum = Number.NEGATIVE_INFINITY;
+
+  for (let set of sets) {
+    curr_sum = curr_sum + set;
+    if (curr_sum > max_sum) {
+      max_sum = curr_sum;
+    }
+    if (curr_sum < 0) {
+      curr_sum = 0;
     }
   }
-
-  return maxSum;
+  return max_sum;
 };
 
 const value = maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]);
