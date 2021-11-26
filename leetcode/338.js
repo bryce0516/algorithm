@@ -25,4 +25,17 @@
 //   const re = answer.slice(0, n + 1);
 //   return re
 // };
-countBits(5);
+var countBits = function (n) {
+  const initialValue = Math.floor(Math.sqrt(n + 1));
+  console.log("initialValue", initialValue);
+  let beforeData = [1];
+  let current = [1];
+  for (let i = 1; i <= initialValue; i++) {
+    const target = beforeData.map((element) => element + 1);
+    beforeData = current;
+    console.log("target, beforeData", target, beforeData);
+    current = [...beforeData, ...target];
+    console.log(current);
+  }
+};
+countBits(3);
