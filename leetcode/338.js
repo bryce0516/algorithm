@@ -27,15 +27,18 @@
 // };
 var countBits = function (n) {
   const initialValue = Math.floor(Math.sqrt(n + 1));
-  console.log("initialValue", initialValue);
-  let beforeData = [1];
-  let current = [1];
-  for (let i = 1; i <= initialValue; i++) {
-    const target = beforeData.map((element) => element + 1);
-    beforeData = current;
-    console.log("target, beforeData", target, beforeData);
-    current = [...beforeData, ...target];
-    console.log(current);
+  console.log("this is initial", initialValue);
+
+  const before = [1];
+  const current = [1];
+
+  for (let i = 0; i <= initialValue; i++) {
+    const target = before.map((element) => element + 1);
+
+    current = [...before, target];
+    console.log(target, current);
+    console.log(i);
   }
 };
-countBits(3);
+
+countBits(2);
