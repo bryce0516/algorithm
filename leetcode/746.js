@@ -2,27 +2,32 @@
  * @param {number[]} cost
  * @return {number}
  */
-var minCostClimbingStairs = function (cost) {
-  let initialValue = cost[0];
-  let before1 = cost[0];
-  let secondValue = cost[1];
-  let before2 = cost[1];
-  let answer;
-  for (let i = 3; i < cost.length; i += 2) {
-    // let current = initialValue + cost[i]
-    // let secondCurrent = secondValue + cost[i]
-    // let current
-  }
-  // let before = cost[0];
-  // let secondbefore = cost[0];
-  // let after = 0;
 
-  // for (let i = 0; i < cost.length; i++) {
-  //   let current = before + cost[i];
+// var minCostClimbingStairs = function (cost) {
+//   if (cost.length <= 3) {
+//     if (cost.length === 3) {
+//       let first = cost[0] + cost[2];
+//       let second = cost[1];
+//       return Math.min(first, second);
+//     }
 
-  //   let min = Math.min(current, before);
-  //   after = min;
-  // }
-};
+//     if (cost.length === 2) {
+//       let first = cost[0];
+//       let second = cost[1];
+//       return Math.min(first, second);
+//     }
+//   }
+//   let current = [cost[0], cost[1]];
+//   for (let i = 2; i < cost.length; i++) {
+//     let firstCompare = current[i - 1] + cost[i];
+//     let secondCompare = current[i - 2] + cost[i];
+//     if (i === cost.length - 1) {
+//       firstCompare = Math.min(current[i - 1], firstCompare);
+//     }
+//     current.push(Math.min(firstCompare, secondCompare));
+//     console.log(current, i, cost.length);
+//   }
+//   return current[current.length - 1];
+// };
 
-minCostClimbingStairs([1, 100, 1, 1, 1, 100, 1, 1, 100, 1]);
+const value = minCostClimbingStairs([1, 100, 1, 1, 1, 100, 1, 1, 100, 1]);
