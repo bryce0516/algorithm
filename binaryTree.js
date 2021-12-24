@@ -18,3 +18,25 @@ a.right = c;
 b.left = d;
 b.right = e;
 c.right = f;
+
+//      a
+//     / \
+//    b   c
+//   / \   \
+//  d   e   f
+
+const depthFirstValues = (root) => {
+  const stack = [root];
+
+  while (stack.length > 0) {
+    const current = stack.pop();
+    console.log(current);
+    console.log(current.val);
+
+    if (current.left) stack.push(current.left);
+
+    if (current.right) stack.push(current.right);
+  }
+};
+
+depthFirstValues(a);
