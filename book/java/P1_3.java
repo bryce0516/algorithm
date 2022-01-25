@@ -1,7 +1,15 @@
 public class P1_3 {
   public static void main(String[] args) {
     String answer = resultMethod(2, 2, 3);
-    System.out.println(answer);
+
+    int[] arr = { 1, 2, 3, 4, 5 };
+    int[] arr2 = new int[5];
+    for (int i = 0; i < arr.length; i++) {
+      arr2[i] = arr[arr.length - i - 1];
+      System.out.println(arr[arr.length - i - 1]);
+    }
+
+    System.out.println(arr2);
   }
 
   public static String resultMethod(int a, int b, int c) {
