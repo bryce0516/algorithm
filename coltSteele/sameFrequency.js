@@ -34,17 +34,20 @@ function sameFrequency(num1, num2) {
   for (let i = 0; i < strNum1.length; i++) {
     countNum1[strNum1[i]] = (countNum1[strNum1[i]] || 0) + 1;
   }
+  console.log("thisis 1", countNum1);
 
   for (let j = 0; j < strNum1.length; j++) {
     countNum2[strNum2[j]] = (countNum2[strNum2[j]] || 0) + 1;
   }
+  console.log("thisis 2", countNum2);
 
   for (let key in countNum1) {
+    console.log("result", countNum1[key], countNum2[key]);
     if (countNum1[key] !== countNum2[key]) return false;
   }
 
   return true;
 }
-const result = sameFrequency(22, 222);
+const result = sameFrequency(2222233, 2222233);
 
 console.log(result);
