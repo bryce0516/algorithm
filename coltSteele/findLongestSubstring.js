@@ -27,8 +27,23 @@
 // }
 
 const findLongestSubstring = function(str) {
- let /l
+ let longest = 0;
+ let seen = {}
+ let start =0
+ for(let i =0; i< str.length; i ++) {
+    let char = str[i]
+    
+    if(seen[char]){
+        console.log("working",start, i)
+        start = Math.max(start, seen[char])
+    }
 
+    longest = Math.max(longest, i - start + 1)
+    seen[char] = i + 1
+ }
+ console.log(longest,seen)
+
+return longest
 }
 
 const result = findLongestSubstring('rithmschool')
