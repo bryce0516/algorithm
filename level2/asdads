@@ -1,0 +1,99 @@
+function maximumBobPoints(numArrows, aliceArrows) {
+  const bobArrowsRes = new Array(12).fill(0);
+  const maxPointsRes = [0];
+  _maxBobPointsHelper(
+    aliceArrows,
+    11,
+    new Array(12).fill(0),
+    numArrows,
+    0,
+    maxPointsRes,
+    bobArrowsRes
+  );
+  return bobArrowsRes;
+}
+
+function _maxBobPointsHelper(
+  aliceArrows,
+  currIndex,
+  bobArrows,
+  bobArrowsRemaining,
+  bobPointsSoFar,
+  maxPointsRes,
+  bobArrowsRes
+) {
+  // base case
+  if (currIndex < 0 || bobArrowsRemaining <= 0) {
+    if (bobArrowsRemaining > 0) {
+      bobArrows[0] += bobArrowsRemaining;
+      // This will not affect points, since even if Bob wins, he will get 0 points since index = 0.
+    }
+    if (bobPointsSoFar > maxPointsRes[0]) {
+      maxPointsRes[0] = bobPointsSoFar;
+      // eslint-disable-next-line no-param-reassign
+      for (let i = 0; i < 12; i++) {
+        bobArrowsRes[i] = bobArrows[i];
+      }
+    }
+  } else {
+    const savedValue = bobArrows[currIndex];
+
+    // do we have choice to pick for current index for Bob? if yes:
+    if (bobArrowsRemaining > aliceArrows[currIndex]) {
+      bobArrows[currIndex] = aliceArrows[currIndex] + 1;
+      _maxBobPointsHelper(
+        aliceArrows,
+        currIndex - 1,
+        bobArrows,
+        bobArrowsRemaining - (aliceArrows[currIndex] + 1),
+        bobPointsSoFar + currIndex,
+        maxPointsRes,
+        bobArrowsRes
+      );
+      bobArrows[currIndex] = savedValue;
+    }
+
+    // we always have choice to skip for current index for Bob
+    _maxBobPointsHelper(
+      aliceArrows,
+      currIndex - 1,
+      bobArrows,
+      bobArrowsRemaining,
+      bobPointsSoFar,
+      maxPointsRes,
+      bobArrowsRes
+    );
+    bobArrows[currIndex] = savedValue;
+  }
+}
+
+
+
+var maximumBobPoints = function(numArrows, aliceArrows) {
+    let best = 0;
+    let bestArray;
+    
+    const check = (index, sum, arrowsLeft, arr) => {
+        if (index === 12 || arrowsLeft === 0) {
+            if (sum > best) {
+                best = sum;
+                if (arrowsLeft > 0) arr[0] += arrowsLeft;
+                bestArray = arr;
+            }
+            
+            return;
+        }
+        
+        if (aliceArrows[index] < arrowsLeft) {
+            const newArr = arr.slice();
+            newArr[index] = aliceArrows[index] + 1;
+            check(index + 1, sum + index, arrowsLeft - aliceArrows[index] - 1, newArr);
+        }
+        
+        check(index + 1, sum, arrowsLeft, arr);
+    };
+    
+    check(0, 0, numArrows, new Array(12).fill(0));
+    
+    return bestArray;
+};
