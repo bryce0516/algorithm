@@ -96,41 +96,80 @@
 // };
 
 var findKthLargest = function (nums, k) {
-  const swap = (i, j) => {
-    const temp = nums[i];
-    nums[i] = nums[j];
-    nums[j] = temp;
+  // const swap = (i, j) => {
+  //   const temp = nums[i];
+  //   nums[i] = nums[j];
+  //   nums[j] = temp;
+  // };
+  // const partition = (left, right, pivotIndex) => {
+  //   let pivot = nums[pivotIndex];
+  //   swap(pivotIndex, right);
+  //   let storeIndex = left;
+  //   for (let i = left; i <= right; i++) {
+  //     if (nums[i] < pivot) {
+  //       swap(i, storeIndex);
+  //       storeIndex++;
+  //     }
+  //   }
+  //   swap(storeIndex, right);
+  //   return storeIndex;
+  // };
+  // const quickSelect = (left, right, k) => {
+  //   if (left === right) return nums[left];
+  //   let pivotIndex = partition(left, right, Math.floor((left + right) / 2));
+  //   console.log(nums);
+  //   if (pivotIndex === nums.length - k) return nums[pivotIndex];
+  //   else if (pivotIndex < nums.length - k)
+  //     return quickSelect(pivotIndex + 1, right, k);
+  //   else return quickSelect(left, pivotIndex - 1, k);
+  // };
+  // return quickSelect(0, nums.length - 1, k);
+};
+
+var findKthLargest = function (nums, k) {
+  const swap = (left, right) => {
+    [nums[left], nums[right]] = [nums[right], nums[left]];
   };
-
   const partition = (left, right, pivotIndex) => {
+    console.log("inputed partition", left, right, pivotIndex);
     let pivot = nums[pivotIndex];
-    swap(pivotIndex, right);
-
-    let storeIndex = left;
+    console.log("inner partion pivot", pivot);
+    swap(pivot, right);
+    let storedIndex = left;
     for (let i = left; i <= right; i++) {
       if (nums[i] < pivot) {
-        swap(i, storeIndex);
-        storeIndex++;
+        console.log("swap i, stored", nums[i], storedIndex);
+        swap(i, storedIndex);
+        storedIndex++;
+      } else {
+        console.log(">>>>else swap numsi, pivot", i, nums[i], pivot);
       }
     }
-    swap(storeIndex, right);
+    swap(storedIndex, right);
 
-    return storeIndex;
+    return storedIndex;
   };
 
   const quickSelect = (left, right, k) => {
-    if (left === right) return nums[left];
-
-    let pivotIndex = partition(left, right, Math.floor((left + right) / 2));
     console.log(nums);
-    if (pivotIndex === nums.length - k) return nums[pivotIndex];
-    else if (pivotIndex < nums.length - k)
-      return quickSelect(pivotIndex + 1, right, k);
-    else return quickSelect(left, pivotIndex - 1, k);
+    console.log("start left right", left, right);
+    if (left === right) return nums[left];
+    const pivot = partition(left, right, Math.floor((left + right) / 2));
+    console.log("pppppivot", pivot);
+    if (pivot === nums.length - k) {
+      console.log("pivot === nums.length - k", right, left, k);
+      return nums[pivot];
+    } else if (pivot < nums.length - k) {
+      console.log("pivot < nums.length - k", right, k);
+      return quickSelect(pivot + 1, right, k);
+    } else {
+      console.log("pivot > nums.length - k", left, k);
+      return quickSelect(left, pivot - 1, k);
+    }
   };
+  const result = { val: quickSelect(0, nums.length - 1, k), arr: nums };
 
-  return quickSelect(0, nums.length - 1, k);
+  console.log(result);
 };
-
 const result = findKthLargest([3, 2, 1, 5, 6, 4], 2);
-console.log(result);
+// console.log(result);
