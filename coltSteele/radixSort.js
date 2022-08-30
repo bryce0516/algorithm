@@ -15,3 +15,20 @@ function mostDigits(nums) {
 
   return maxDigits;
 }
+
+function radixSort(nums) {
+  let maxDigitsCount = mostDigits(nums);
+  for (let k = 0; k < maxDigitsCount; k++) {
+    let digitBucket = Array.from({ length: 10 }, () => []);
+    for (let i = 0; i < nums.length; i++) {
+      const index = getDigit(nums[i], k);
+      digitBucket[index].push(nums[i]);
+    }
+    nums = [].concat(...digitBucket);
+  }
+
+  return nums;
+}
+
+const result = radixSort([23, 345, 5467, 12, 2345, 9852]);
+console.log(result);
