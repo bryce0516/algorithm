@@ -111,4 +111,8 @@ class SinglyLinkedList {
 
     return this;
   }
+
+  pop() {
+    return this.remove(this.length - 1);
+  }
 }
