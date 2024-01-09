@@ -1,40 +1,3 @@
-// const canSum = (targetSum, numbers, memo = {}) => {
-//   if (targetSum in memo) return memo[targetSum];
-//   if (targetSum === 0) return true;
-//   if (targetSum < 0) return false;
-//   for (let num of numbers) {
-//     const remainder = targetSum - num;
-
-//     if (canSum(remainder, numbers, memo) === true) {
-//       memo[targetSum] = true;
-//       return true;
-//     }
-//   }
-//   memo[targetSum] = false;
-//   return false;
-// };
-
-
-// const howSum = (targetSum, numbers, memo = {}) => {
-//   if (targetSum in memo) return memo[targetSum];
-//   if (targetSum === 0) return []
-//   if (targetSum < 0) return null
-
-//   for (let num of numbers) {
-//     const remainder = targetSum - num;
-//     const remainderResult = howSum(remainder, numbers, memo)
-//     console.log(num)
-//     console.log("reminderResult", remainderResult)
-//     if(remainderResult !== null) {
-//       memo[targetSum] = [...remainderResult, num]
-//       return memo[targetSum]
-//     }
-
-//   }
-//   memo[targetSum] = null
-//   return null
-// };
-
 const bestSum = (targetSum, numbers) => {
   if (targetSum === 0) return []
   if (targetSum < 0) return null
@@ -46,7 +9,7 @@ const bestSum = (targetSum, numbers) => {
     const remainderCombination = bestSum(remainder, numbers)
 
     if (remainderCombination !== null) {
-      const combination = [ ...remainderCombination, num ]
+      const combination = [...remainderCombination, num]
       if (shortestCombination === null || combination.length < shortestCombination.length) {
 
         shortestCombination = combination
