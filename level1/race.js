@@ -31,59 +31,59 @@ const result = solution(players, callings)
 console.log("players. ", players);
 console.log("result ", result);
 
-// function refactorSolution(players, callings) {
-//   class PlayerNode {
-//     constructor(name) {
-//       this.name = name;
-//       this.prev = null;
-//       this.next = null;
-//     }
-//   }
+function refactorSolution(players, callings) {
+  class PlayerNode {
+    constructor(name) {
+      this.name = name;
+      this.prev = null;
+      this.next = null;
+    }
+  }
 
-//   let head = new PlayerNode(null);
-//   let tail = head;
-//   let playerToNode = {};
+  let head = new PlayerNode(null);
+  let tail = head;
+  let playerToNode = {};
 
-//   players.forEach(player => {
-//     let newNode = new PlayerNode(player);
+  players.forEach(player => {
+    let newNode = new PlayerNode(player);
 
-//     tail.next = newNode;
+    tail.next = newNode;
 
-//     newNode.prev = tail;
+    newNode.prev = tail;
 
-//     playerToNode[player] = newNode;
+    playerToNode[player] = newNode;
 
-//     tail = newNode;
-//   });
+    tail = newNode;
+  });
 
-//   callings.forEach((player, index) => {
-//     let node = playerToNode[player];
-//     if (node.prev && node.prev.name !== null) {
-//       let prevNode = node.prev;
-//       let nextNode = node.next;
+  callings.forEach((player, index) => {
+    let node = playerToNode[player];
+    if (node.prev && node.prev.name !== null) {
+      let prevNode = node.prev;
+      let nextNode = node.next;
 
-//       prevNode.next = nextNode;
-//       node.prev = prevNode.prev;
-//       node.next = prevNode;
-//       prevNode.prev = node;
-//       if (nextNode) {
-//         nextNode.prev = prevNode;
-//       }
-//       if (node.prev) {
-//         node.prev.next = node;
-//       }
-//     }
-//   });
+      prevNode.next = nextNode;
+      node.prev = prevNode.prev;
+      node.next = prevNode;
+      prevNode.prev = node;
+      if (nextNode) {
+        nextNode.prev = prevNode;
+      }
+      if (node.prev) {
+        node.prev.next = node;
+      }
+    }
+  });
 
-//   let result = [];
-//   let current = head.next;
-//   while (current) {
-//     result.push(current.name);
-//     current = current.next;
-//   }
+  let result = [];
+  let current = head.next;
+  while (current) {
+    result.push(current.name);
+    current = current.next;
+  }
 
-//   return result;
-// }
+  return result;
+}
 
 // 테스트
 // let players = ["mumu", "soe", "poe", "kai", "mine"];
