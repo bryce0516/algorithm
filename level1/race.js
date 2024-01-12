@@ -1,46 +1,33 @@
 function solution(players, callings) {
-
-  let hash = {}
-
-  for (const element in players) {
-    hash[players[element]] = Number(element)
-  }
-  return callings.reduce((acc, cur, index) => {
-    console.log(acc)
-    console.log("cur", cur)
-
-    const index1 = acc[cur] - 1 // to
-    const index2 = acc[cur] // from
-
-
-    console.log("index1", index1)
-    console.log("index2", index2)
-    const entries = Object.entries(acc);
-
-    const key = entries.find(([key, value]) => value === 2);
-    console.log("dd", key[0]);
-
-    if (acc[cur] >= 1) {
-
+  let _index = 0
+  let endIndex = callings.length
+  const recursion = (caller, origin) => {
+    if (_index === endIndex) {
+      return origin
     }
-    // acc.map((element, index2) => {
-    //   if (element == cur) {
-    //     acc[index2] = acc[index2 - 1]
-    //     acc[index2 - 1] = cur
-    //   }
-    //   return element
-    // })
-    return acc
-  }, hash)
+    let end = true
+    let $index = 0
+    while (end) {
+      if ($index === origin.length - 1) {
+        end = false
+      }
+      if (caller === origin[$index]) {
+
+        if ($index >= 1) {
+          let target = origin[$index]
+          let after = origin[$index - 1]
+          origin.splice($index, 1, after)
+          origin.splice($index - 1, 1, target)
+          end = false
+        }
+      }
+      $index++
+    }
+    _index++
+    return recursion(callings[_index], origin)
+  }
+  const dd = recursion(callings[_index], players)
 }
-
-// function solution2(players, callings) {
-//   let cache = 
-
-//   console.log(players)
-//   console.log(callings)
-
-// }
 
 const players = ["mumu", "soe", "poe", "kai", "mine"]
 const callings = ["kai", "kai", "mine", "mine"]
